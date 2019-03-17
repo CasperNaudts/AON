@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28705.295
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChap.UI.Console", "SuperChap\SuperChap.UI.Console.csproj", "{76C2A7F6-4430-448E-828B-3C698DB038E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperChat.UI.Console", "SuperChap\SuperChat.UI.Console.csproj", "{76C2A7F6-4430-448E-828B-3C698DB038E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChat.Data", "SuperChat.Data\SuperChat.Data.csproj", "{8E62066E-33F0-4639-8D9B-17BEF57AE5B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperChat.Data", "SuperChat.Data\SuperChat.Data.csproj", "{8E62066E-33F0-4639-8D9B-17BEF57AE5B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChat.Business", "SuperChat.Business\SuperChat.Business.csproj", "{22E3E1AA-600A-49FB-8753-4CF203C569F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperChat.Business", "SuperChat.Business\SuperChat.Business.csproj", "{22E3E1AA-600A-49FB-8753-4CF203C569F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChap.UI.UWP", "SuperChap.UI.UWP\SuperChap.UI.UWP.csproj", "{A0216889-5936-448E-997C-48239875892B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChat.UI.UWP", "SuperChap.UI.UWP\SuperChat.UI.UWP.csproj", "{A0216889-5936-448E-997C-48239875892B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
