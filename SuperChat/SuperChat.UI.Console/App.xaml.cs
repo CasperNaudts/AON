@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace SuperChap.UI.UWP
+namespace SuperChat.UI.Console
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

@@ -1,7 +1,7 @@
 ﻿<Application
-    x:Class="SuperChap.UI.UWP.App"
+    x:Class="SuperChat.UI.Console.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SuperChap.UI.UWP">
+    xmlns:local="using:SuperChat.UI.Console">
 
 </Application>

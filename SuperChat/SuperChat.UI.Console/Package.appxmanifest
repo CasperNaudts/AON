@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="b6a15dc3-0247-436e-ad1d-8ac6c9dfaf5f"
+    Name="daf6d012-76ca-4f2d-8306-6ed068e10907"
     Publisher="CN=caspe"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="b6a15dc3-0247-436e-ad1d-8ac6c9dfaf5f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="daf6d012-76ca-4f2d-8306-6ed068e10907" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>SuperChap.UI.UWP</DisplayName>
+    <DisplayName>SuperChat.UI.Console</DisplayName>
     <PublisherDisplayName>caspe</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="SuperChap.UI.UWP.App">
+      EntryPoint="SuperChat.UI.Console.App">
       <uap:VisualElements
-        DisplayName="SuperChap.UI.UWP"
+        DisplayName="SuperChat.UI.Console"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="SuperChap.UI.UWP"
+        Description="SuperChat.UI.Console"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
