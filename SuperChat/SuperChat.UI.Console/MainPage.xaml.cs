@@ -35,6 +35,10 @@ namespace SuperChat.UI.Console
                 UsernameTextBox.BorderBrush = UsernameTextBox.Text == "" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.DarkGray);
                 PasswordPasswordBox.BorderBrush = PasswordPasswordBox.Password == "" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.DarkGray);
             }
+            else
+            {
+                this.Frame.Navigate(typeof(Chats));
+            }
         }
     }
 }
