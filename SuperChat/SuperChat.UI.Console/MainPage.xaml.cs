@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,15 @@ namespace SuperChat.UI.Console
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsernameTextBox.Text == "" || PasswordPasswordBox.Password == "")
+            {
+                UsernameTextBox.BorderBrush = UsernameTextBox.Text == "" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.DarkGray);
+                PasswordPasswordBox.BorderBrush = PasswordPasswordBox.Password == "" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.DarkGray);
+            }
         }
     }
 }

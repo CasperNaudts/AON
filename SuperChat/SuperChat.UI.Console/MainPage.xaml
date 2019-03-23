@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Content="Button" Margin="236,176,0,0" VerticalAlignment="Top" Height="50" Width="137"/>
-
+        <TextBox x:Name="UsernameTextBox" HorizontalAlignment="Center" Margin="0,201,0,0" Text="" VerticalAlignment="Top" Height="85" Width="678" FontSize="48" AcceptsReturn="True" PlaceholderText="Username"/>
+        <PasswordBox x:Name="PasswordPasswordBox" HorizontalAlignment="Center" Margin="0,351,0,0" VerticalAlignment="Top" Height="85" Width="678" FontSize="48" PlaceholderText="Password"/>
+        <Button x:Name="LoginButton" HorizontalAlignment="Center" Margin="0,501,0,0" VerticalAlignment="Top" Height="85" Width="678" FontSize="48" Content="Login" Click="LoginButton_Click"/>
     </Grid>
 </Page>
