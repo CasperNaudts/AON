@@ -10,8 +10,8 @@ using SuperChat.Data;
 namespace SuperChat.Data.Migrations
 {
     [DbContext(typeof(SuperChatContext))]
-    [Migration("20190324162256_Initial")]
-    partial class Initial
+    [Migration("20190325212502_addKeys")]
+    partial class addKeys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,21 +21,40 @@ namespace SuperChat.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("SuperChat.Domain.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("KeysJson");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Chats");
+                });
+
             modelBuilder.Entity("SuperChat.Domain.Message", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ChatId");
+
                     b.Property<string>("Content");
+
+                    b.Property<byte[]>("IV");
 
                     b.Property<int?>("RecieverId");
 
                     b.Property<int?>("SenderId");
 
-                    b.Property<int>("TimeSend");
+                    b.Property<DateTime>("TimeSend");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
 
                     b.HasIndex("RecieverId");
 
@@ -50,6 +69,8 @@ namespace SuperChat.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ChatId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Password");
@@ -58,11 +79,17 @@ namespace SuperChat.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChatId");
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SuperChat.Domain.Message", b =>
                 {
+                    b.HasOne("SuperChat.Domain.Chat")
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatId");
+
                     b.HasOne("SuperChat.Domain.User", "Reciever")
                         .WithMany()
                         .HasForeignKey("RecieverId");
@@ -70,6 +97,13 @@ namespace SuperChat.Data.Migrations
                     b.HasOne("SuperChat.Domain.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId");
+                });
+
+            modelBuilder.Entity("SuperChat.Domain.User", b =>
+                {
+                    b.HasOne("SuperChat.Domain.Chat")
+                        .WithMany("Users")
+                        .HasForeignKey("ChatId");
                 });
 #pragma warning restore 612, 618
         }

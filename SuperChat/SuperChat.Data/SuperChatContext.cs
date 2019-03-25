@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SuperChat.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SuperChat.Data
 {
@@ -10,6 +7,7 @@ namespace SuperChat.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Chat> Chats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

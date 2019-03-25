@@ -1,19 +1,23 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography;
 
 namespace SuperChat.Business
 {
-    public class Class1
+    public static class SymmetricEncryption
     {
-
-        public static void Main()
+        public static byte[] Encrypt(byte[] messageBytes)
         {
             AesManaged aes = new AesManaged();
-            aes.GenerateKey();
-            byte[] temp = aes.Key;
+            return EncryptAes(messageBytes, aes.Key, aes.IV);
         }
-         static byte[] EncryptAes(string plainText, byte[] Key, byte[] IV)
+
+        public static byte[] Decrypt(byte[] messageBytes)
+        {
+            AesManaged aes = new AesManaged();
+            return DecryptAes(messageBytes, aes.Key, aes.IV);
+        }
+
+        public static byte[] EncryptAes(byte[] message, byte[] Key, byte[] IV)
         {
             byte[] encrypted;
             // Create a new AesManaged.    
@@ -31,7 +35,7 @@ namespace SuperChat.Business
                     {
                         // Create StreamWriter and write data to a stream    
                         using (StreamWriter sw = new StreamWriter(cs))
-                            sw.Write(plainText);
+                            sw.Write(message);
                         encrypted = ms.ToArray();
                     }
                 }
@@ -39,9 +43,9 @@ namespace SuperChat.Business
             // Return encrypted data    
             return encrypted;
         }
-        static string DecryptAes(byte[] cipherText, byte[] Key, byte[] IV)
+
+        public static byte[] DecryptAes(byte[] cipherText, byte[] Key, byte[] IV)
         {
-            string plaintext = null;
             // Create AesManaged    
             using (AesManaged aes = new AesManaged())
             {
@@ -53,41 +57,18 @@ namespace SuperChat.Business
                     // Create crypto stream    
                     using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     {
-                        // Read crypto stream    
-                        using (StreamReader reader = new StreamReader(cs))
-                            plaintext = reader.ReadToEnd();
+                        var buffer = new byte[1024];
+                        var read = cs.Read(buffer, 0, buffer.Length);
+                        while (read > 0)
+                        {
+                            ms.Write(buffer, 0, read);
+                            read = cs.Read(buffer, 0, buffer.Length);
+                        }
+                        cs.Flush();
                     }
+                    return ms.ToArray();
                 }
             }
-            return plaintext;
         }
-
-
-        static void EncryptAesManaged(string raw)
-        {
-            try
-            {
-                // Create Aes that generates a new key and initialization vector (IV).    
-                // Same key must be used in encryption and decryption    
-                using (AesManaged aes = new AesManaged())
-                {
-                    // Encrypt string    
-                    byte[] encrypted = EncryptAes(raw, aes.Key, aes.IV);
-
-                    // Print encrypted string    
-                    Console.WriteLine($ "Encrypted data: {System.Text.Encoding.UTF8.GetString(encrypted)}");
-                    // Decrypt the bytes to a string.    
-                    string decrypted = DecryptAes(encrypted, aes.Key, aes.IV);
-                    // Print decrypted string. It should be same as raw data    
-                    Console.WriteLine($ "Decrypted data: {decrypted}");
-                }
-            }
-            catch (Exception exp)
-            {
-                Console.WriteLine(exp.Message);
-            }
-            Console.ReadKey();
-        }
-   
     }
 }

@@ -1,12 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SuperChat.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class addKeys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Chats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    KeysJson = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chats", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -15,11 +29,18 @@ namespace SuperChat.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    PublicKey = table.Column<string>(nullable: true)
+                    PublicKey = table.Column<string>(nullable: true),
+                    ChatId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Chats_ChatId",
+                        column: x => x.ChatId,
+                        principalTable: "Chats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -31,11 +52,19 @@ namespace SuperChat.Data.Migrations
                     Content = table.Column<string>(nullable: true),
                     SenderId = table.Column<int>(nullable: true),
                     RecieverId = table.Column<int>(nullable: true),
-                    TimeSend = table.Column<int>(nullable: false)
+                    TimeSend = table.Column<DateTime>(nullable: false),
+                    IV = table.Column<byte[]>(nullable: true),
+                    ChatId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_Chats_ChatId",
+                        column: x => x.ChatId,
+                        principalTable: "Chats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Messages_Users_RecieverId",
                         column: x => x.RecieverId,
@@ -51,6 +80,11 @@ namespace SuperChat.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_ChatId",
+                table: "Messages",
+                column: "ChatId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Messages_RecieverId",
                 table: "Messages",
                 column: "RecieverId");
@@ -59,6 +93,11 @@ namespace SuperChat.Data.Migrations
                 name: "IX_Messages_SenderId",
                 table: "Messages",
                 column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_ChatId",
+                table: "Users",
+                column: "ChatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -68,6 +107,9 @@ namespace SuperChat.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Chats");
         }
     }
 }
