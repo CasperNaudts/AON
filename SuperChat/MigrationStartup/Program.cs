@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace MigrationStartup
 {
@@ -6,7 +7,9 @@ namespace MigrationStartup
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            Console.WriteLine(RSA.ToString());
+            Console.Read();
         }
     }
 }

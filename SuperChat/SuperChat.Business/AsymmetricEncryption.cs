@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Text;
+using SuperChat.Domain;
 
 namespace SuperChat.Business
 {
     public static class AsymmetricEncryption
     {
-        public static Byte[] Encrypt(byte[] dataToEncrypt)
+        public static Byte[] Encrypt(byte[] dataToEncrypt, User recipientUser)
         {
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
             
             return RSAEncrypt(dataToEncrypt, RSA.ExportParameters(false), false);
+        }
+
+        public static string ExportOptions()
+        {
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            return RSA.ToXmlString(true);
         }
 
         public static Byte[] Decrypt(byte[] encryptedData)
